@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">24012011189_mad_p7</string>
+    <string name="loading_data">Loading data from network…</string>
+    <string name="no_persons_found">No persons found.</string>
+    <string name="error_prefix">Error: %1$s</string>
+    <string name="update_failed">Update failed: %1$s</string>
+</resources>
