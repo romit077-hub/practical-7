@@ -1,5 +1,6 @@
 package com.example.a24012011189_mad_p7
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -10,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PersonAdapter
     private lateinit var tvError: TextView
+    private lateinit var fabRefresh: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +36,23 @@ class MainActivity : AppCompatActivity() {
         dbHelper = DatabaseHelper(this)
         recyclerView = findViewById(R.id.recyclerView)
         tvError = findViewById(R.id.tvError)
+        fabRefresh = findViewById(R.id.fabRefresh)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val cachedPersons = dbHelper.getAllPersons()
-        adapter = PersonAdapter(cachedPersons)
+        adapter = PersonAdapter(
+            persons = cachedPersons,
+            onItemClick = { person ->
+                val intent = Intent(this, MapActivity::class.java)
+                intent.putExtra("person", person)
+                startActivity(intent)
+            },
+            onDeleteClick = { person ->
+                dbHelper.deletePerson(person.id)
+                refreshListFromDb()
+                Toast.makeText(this, "${person.name} deleted", Toast.LENGTH_SHORT).show()
+            }
+        )
         recyclerView.adapter = adapter
 
         if (cachedPersons.isEmpty()) {
@@ -45,6 +61,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         fetchAndDisplayPersons()
+
+        fabRefresh.setOnClickListener {
+            Toast.makeText(this, "Refreshing data...", Toast.LENGTH_SHORT).show()
+            fetchAndDisplayPersons()
+        }
+    }
+
+    private fun refreshListFromDb() {
+        val persons = dbHelper.getAllPersons()
+        adapter.updateData(persons)
+        if (persons.isEmpty()) {
+            tvError.text = getString(R.string.no_persons_found)
+            tvError.visibility = View.VISIBLE
+        } else {
+            tvError.visibility = View.GONE
+        }
     }
 
     private fun fetchAndDisplayPersons() {

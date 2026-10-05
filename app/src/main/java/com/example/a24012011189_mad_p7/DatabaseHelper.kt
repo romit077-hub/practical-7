@@ -40,7 +40,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         onCreate(db)
     }
 
-    fun insertPerson(person: Person){
+    fun insertPerson(person: Person) {
         val db = writableDatabase
         val values = ContentValues().apply {
             put(COL_ID, person.id)
@@ -53,6 +53,20 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         }
         db.insertWithOnConflict(TABLE_PERSONS, null, values, SQLiteDatabase.CONFLICT_REPLACE)
         db.close()
+    }
+
+    fun deletePerson(id: String): Int {
+        val db = writableDatabase
+        val rowsDeleted = db.delete(TABLE_PERSONS, "$COL_ID = ?", arrayOf(id))
+        db.close()
+        return rowsDeleted
+    }
+
+    fun deleteAllPersons(): Int {
+        val db = writableDatabase
+        val rowsDeleted = db.delete(TABLE_PERSONS, null, null)
+        db.close()
+        return rowsDeleted
     }
 
     fun getAllPersons(): List<Person> {

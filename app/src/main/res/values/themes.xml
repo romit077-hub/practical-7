@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme._24012011189_mad_p7" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowBackground">@color/light_app_bg</item>
+        <item name="colorSurfaceContainerHigh">@color/light_card_bg</item>
     </style>
 
     <style name="Theme._24012011189_mad_p7" parent="Base.Theme._24012011189_mad_p7" />

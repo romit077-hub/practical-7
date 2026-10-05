@@ -2,4 +2,24 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Light Theme Colors -->
+    <color name="light_app_bg">#F2F4FC</color>
+    <color name="light_card_bg">#E2E5F5</color>
+    <color name="light_text_primary">#1B1C20</color>
+    <color name="light_text_secondary">#5E606A</color>
+    <color name="light_refresh_fab_bg">#C7DCFF</color>
+    <color name="light_refresh_fab_icon">#001D36</color>
+
+    <!-- Dark Theme Colors -->
+    <color name="dark_app_bg">#111218</color>
+    <color name="dark_card_bg">#282A36</color>
+    <color name="dark_text_primary">#E3E5EE</color>
+    <color name="dark_text_secondary">#A0A3B0</color>
+    <color name="dark_refresh_fab_bg">#0056D2</color>
+    <color name="dark_refresh_fab_icon">#FFFFFF</color>
+
+    <!-- Shared Colors -->
+    <color name="delete_btn_pink">#E91E63</color>
+    <color name="avatar_circle_grey">#8A8C98</color>
 </resources>
