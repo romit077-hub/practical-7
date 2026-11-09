@@ -1,78 +1,63 @@
 # MAD Practical 7 - Person Directory & Map Viewer
 
-A native Android application built with Kotlin that fetches person profile data from a remote JSON REST API, caches it locally using an offline-first SQLite database, displays it in a RecyclerView, and provides Google Maps location viewing for each profile.
+A native Android application built with Kotlin that displays person profile data, caches it locally using an offline-first SQLite database, presents it in a RecyclerView, and provides Google Maps location viewing.
 
 ---
 
-## 📱 Features
+## Features
 
-- **Person Profile List**: Displays person details including Name, Phone Number, Email, Address, Latitude, and Longitude.
-- **Offline-First Architecture**: Loads cached profiles immediately from the local SQLite database upon launch, then updates in the background.
-- **Resilient Network Handling**: Seamless fallback mechanism supporting both `JSONArray` and `JSONObject` formats with automatic mock data recovery on HTTP 401 / network errors.
-- **Google Maps Integration**: "View on Map" feature launches Google Maps using geo-intents (`geo:lat,lng`) to display exact coordinates.
-- **Material 3 UI**: Clean layout styled with Material Design components supporting both Light and Dark modes.
+- **Person Profile List**: Displays name, phone number, email, address, latitude, and longitude.
+- **Offline-first data**: Loads bundled demonstration records and stores profile data locally using SQLite.
+- **Google Maps Integration**: "View on Map" launches Google Maps using geo-intents (`geo:lat,lng`).
+- **Material 3 UI**: Light and dark theme support.
 
----
+> **API credential security:** The Android client intentionally does not call the former authenticated JSON Generator endpoint. A private API token embedded in an APK can be extracted by anyone who obtains the app. The current client uses bundled demonstration records. If remote data is needed, add a trusted backend proxy and keep the provider credential exclusively on that server. Do not put private credentials in Kotlin source, resources, BuildConfig, or other client-side configuration.
 
-## 🛠️ Tech Stack & Architecture
+## Tech Stack
 
 - **Language**: Kotlin
 - **Min SDK**: 24 (Android 7.0)
-- **Target SDK**: 37 (Android 15)
+- **Target SDK**: 37
 - **Database**: SQLite (`SQLiteOpenHelper`)
-- **Async Processing**: Kotlin Coroutines (`Dispatchers.IO` & `Dispatchers.Main`)
-- **UI Components**: `RecyclerView`, `ConstraintLayout`, `CardView`, `MaterialButton`
-- **Network & JSON**: `HttpURLConnection`, `org.json` (`JSONArray`, `JSONObject`)
+- **UI**: RecyclerView, ConstraintLayout, CardView, MaterialButton
+- **Maps**: Android geo-intents
 
----
-
-## 📂 Project Structure
+## Project Structure
 
 ```text
 com.example.a24012011189_mad_p7/
-├── DatabaseHelper.kt      # SQLite database helper for CRUD operations on person records
-├── HttpRequest.kt         # REST client for fetching remote JSON profiles with error fallback
-├── MainActivity.kt        # Main screen hosting RecyclerView and coordinating DB/Network sync
-├── MapActivity.kt         # Location detail screen with Google Maps Intent launcher
-├── Person.kt              # Serializable data model representing a Person profile
-├── PersonAdapter.kt       # RecyclerView adapter binding Person items to layout viewholders
+├── DatabaseHelper.kt
+├── HttpRequest.kt         # Bundled demo data; no embedded API credential
+├── MainActivity.kt
+├── MapActivity.kt
+├── Person.kt
+├── PersonAdapter.kt
 └── res/
     ├── layout/
-    │   ├── activity_main.xml    # Main container with RecyclerView and status view
-    │   ├── activity_map.xml     # Location details and map action view
-    │   └── item_person.xml      # Individual person list item card layout
     └── values/
-        ├── strings.xml          # Translatable string resources
-        └── themes.xml           # App theme definitions
 ```
 
----
-
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
-- **Android Studio**: Jellyfish or newer
-- **JDK**: Java 11 or higher
-- **Android Device / Emulator**: Running Android 7.0 (API level 24) or higher
+- Android Studio (Jellyfish or newer)
+- JDK 11 or higher
+- Android device/emulator running Android 7.0 (API 24) or higher
 
 ### Build & Run
 1. Clone the repository:
    ```bash
    git clone https://github.com/romit077-hub/practical-7.git
    ```
-2. Open the project in **Android Studio**.
-3. Sync project with Gradle files (`File > Sync Project with Gradle Files`).
-4. Select your target device/emulator and click **Run (Shift + F10)**.
+2. Open the project in Android Studio.
+3. Sync project with Gradle files.
+4. Select a device/emulator and run the app.
 
----
+## Usage
 
-## 📸 Screenshots & Usage
+1. Launch the app to view the bundled demonstration profiles.
+2. Tap **View on Map** on a profile to open its coordinates in Google Maps.
 
-1. **Launch App**: View cached or fetched person profiles in a scrollable list.
-2. **View Location**: Tap **View on Map** under any person's profile to inspect location coordinates and trigger Google Maps.
+## License
 
----
-
-## 📄 License
-
-This project is created for educational purposes under the Mobile Application Development (MAD) lab coursework.
+Created for educational purposes under the Mobile Application Development (MAD) lab coursework.
